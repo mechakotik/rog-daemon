@@ -3,3 +3,9 @@ executable('rog-profile',
     install: true,
     install_dir: '/usr/bin'
 )
+
+executable('rog-fan-curve',
+    files('fan_curve.cpp'),
+    install: true,
+    install_dir: '/usr/bin'
+)

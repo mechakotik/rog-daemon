@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <filesystem>
+#include <thread>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -8,6 +9,7 @@
 #include <csignal>
 
 #include "profile.hpp"
+#include "fan_curve.hpp"
 #include "enums.hpp"
 
 std::vector<char> execute(std::vector<char> command)
@@ -31,6 +33,57 @@ std::vector<char> execute(std::vector<char> command)
             int id;
             result[0] = rogd::profile::next(id);
             result[1] = id;
+            break;
+        }
+
+        case ROGD_COMMAND_FAN_CURVE_GET: {
+            rogd::fan_curve::curve_t curve;
+            result[0] = rogd::fan_curve::get(command[1], curve);
+            result[1] = curve.enabled;
+            for(int point = 0; point < rogd::fan_curve::NUM_CURVE_POINTS; point ++) {
+                result[point + 2] = curve.temps[point];
+            }
+            for(int point = 1; point <= rogd::fan_curve::NUM_CURVE_POINTS; point ++) {
+                result[point + rogd::fan_curve::NUM_CURVE_POINTS + 2] = curve.pwms[point];
+            }
+            break;
+        }
+
+        case ROGD_COMMAND_FAN_CURVE_ENABLE: {
+            rogd::fan_curve::curve_t curve;
+            result[0] = rogd::fan_curve::get(command[1], curve);
+            if(result[0]) {
+                break;
+            }
+            curve.enabled = true;
+            result[0] = rogd::fan_curve::set(command[1], curve);
+            break;
+        }
+
+        case ROGD_COMMAND_FAN_CURVE_DISABLE: {
+            rogd::fan_curve::curve_t curve;
+            result[0] = rogd::fan_curve::get(command[1], curve);
+            if(result[0]) {
+                break;
+            }
+            curve.enabled = false;
+            result[0] = rogd::fan_curve::set(command[1], curve);
+            break;
+        }
+
+        case ROGD_COMMAND_FAN_CURVE_SET: {
+            rogd::fan_curve::curve_t curve;
+            curve.enabled = true;
+            for(int point = 0; point < 8; point ++) {
+                curve.temps[point] = command[point + 2];
+                curve.pwms[point] = command[point + 10];
+            }
+            result[0] = rogd::fan_curve::set(command[1], curve);
+            break;
+        }
+
+        case ROGD_COMMAND_FAN_CURVE_RESET: {
+            result[0] = rogd::fan_curve::reset(command[1]);
             break;
         }
     }
@@ -80,6 +133,9 @@ int main()
     signal(SIGABRT, interrupt);
     signal(SIGTERM, interrupt);
 
+    rogd::fan_curve::load();
+    std::thread fan_curve_fix_thread(rogd::fan_curve::fix_loop);
+
     while(true) {
         sockaddr_un client_addr;
         int client_addr_len = sizeof(client_addr);
@@ -103,5 +159,6 @@ int main()
         close(client_socket);
     }
 
+    fan_curve_fix_thread.join();
     return 0;
 }

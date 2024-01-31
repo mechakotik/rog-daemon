@@ -3,7 +3,8 @@ executable(
     files(
         'main.cpp',
         'sysfs.cpp',
-        'profile.cpp'
+        'profile.cpp',
+        'fan_curve.cpp'
     ),
     install: true,
     install_dir: '/usr/bin'

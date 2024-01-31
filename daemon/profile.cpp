@@ -13,7 +13,7 @@ int rogd::profile::get(int &result)
         return ROGD_ERROR_NO_TTP;
     }
     if(!sysfs::get(TTP_PATH, result)) {
-        return ROGD_ERROR_READ_FAILED;
+        return ROGD_ERROR_SYSFS_READ_FAILED;
     }
     return ROGD_OK;
 }
@@ -27,7 +27,7 @@ int rogd::profile::set(int value)
         return ROGD_ERROR_NO_TTP;
     }
     if(!sysfs::set(TTP_PATH, value)) {
-        return ROGD_ERROR_WRITE_FAILED;
+        return ROGD_ERROR_SYSFS_WRITE_FAILED;
     }
     return ROGD_OK;
 }
