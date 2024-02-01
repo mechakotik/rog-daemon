@@ -7,6 +7,12 @@
 const int ROGD_COMMAND_SIZE = 20;
 
 enum {
+    ROGD_PROFILE_BALANCED,
+    ROGD_PROFILE_PERFORMANCE,
+    ROGD_PROFILE_QUIET
+};
+
+enum {
     ROGD_COMMAND_PROFILE_GET,
     ROGD_COMMAND_PROFILE_SET,
     ROGD_COMMAND_PROFILE_NEXT,
@@ -14,7 +20,9 @@ enum {
     ROGD_COMMAND_FAN_CURVE_ENABLE,
     ROGD_COMMAND_FAN_CURVE_DISABLE,
     ROGD_COMMAND_FAN_CURVE_SET,
-    ROGD_COMMAND_FAN_CURVE_RESET
+    ROGD_COMMAND_FAN_CURVE_RESET,
+    ROGD_COMMAND_MUX_GET,
+    ROGD_COMMAND_MUX_SET
 };
 
 enum {
@@ -27,7 +35,8 @@ enum {
     ROGD_ERROR_FAN_CURVES_UNSUPPORTED,
     ROGD_ERROR_NO_SUCH_FAN,
     ROGD_ERROR_FILE_READ_FAILED,
-    ROGD_ERROR_FILE_WRITE_FAILED
+    ROGD_ERROR_FILE_WRITE_FAILED,
+    ROGD_ERROR_MUX_UNSOPPORTED
 };
 
 const std::vector<std::string> ROGD_ERROR_MESSAGES
@@ -41,7 +50,8 @@ const std::vector<std::string> ROGD_ERROR_MESSAGES
     "your device does not support custom fan curves",
     "no such fan on your device",
     "file read failed",
-    "file write failed"
+    "file write failed",
+    "your device does not support MUX switch"
 };
 
 #endif

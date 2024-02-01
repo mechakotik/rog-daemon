@@ -4,6 +4,7 @@ rog-daemon is Linux damon and CLI to control ASUS ROG/TUF laptops specific featu
 
 - Profile (throttle thermal policy) control
 - Custom fan curves
+- MUX switch control
 
 ## Build and install
 
@@ -32,7 +33,7 @@ sudo systemctl enable rog-daemon
 
 ### `rog-profile`
 
-Controls profile, which affects fan curves and thermal throttling. Three profiles are available: balanced, performance and quiet.
+Controls profile, which affects fan curves and thermal throttling. Three profiles are available: Balanced, Performance and Quiet.
 
 ```bash
 # Get current profile
@@ -47,7 +48,7 @@ rog-profile --next
 
 ### `rog-fan-curve`
 
-Allows to override default fan curves for each fan (cpu, gpu, mid) for current profile. 
+Allows to override default fan curves for each fan (cpu, gpu, mid) for current profile.
 
 ```bash
 # Get current fan curve for CPU fan
@@ -58,6 +59,21 @@ rog-fan-curve --fan=cpu --set=0c:0%,65c:0%,67c:30%,70c:40%,75c:50%,80c:60%,85c:8
 
 # Reset to factory default fan curve for CPU fan:
 rog-fan-curve --fan=cpu --reset
+```
+
+### `rog-mux`
+
+Controls MUX switch mode, may be either Optimus (iGPU is used for rendering, dGPU is available through PRIME render offload) or Ultimate (dGPU is used for rendering).
+
+```bash
+# Get current MUX switch mode
+rog-mux --get
+
+# Set MUX switch mode to Optimus
+rog-mux --set=optimus
+
+# Set MUX switch mode to Ultimate
+rog-mux --set=ultimate
 ```
 
 ## Difference from asusctl

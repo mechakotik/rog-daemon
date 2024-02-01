@@ -13,7 +13,6 @@ const std::string ROGD_CONNECT_ERROR_MESSAGE = "unable to connect to rog-daemon,
 
 bool execute(std::vector<char> command, std::vector<char> &result)
 {
-    // TODO: add error handling
     int server_socket = socket(AF_UNIX, SOCK_STREAM, 0);
     if(server_socket == -1) {
         return false;
@@ -28,7 +27,7 @@ bool execute(std::vector<char> command, std::vector<char> &result)
     }
 
     timeval read_timeout;
-    read_timeout.tv_sec = 1;
+    read_timeout.tv_sec = 3;
     read_timeout.tv_usec = 0;
     setsockopt(server_socket, SOL_SOCKET, SO_RCVTIMEO, (const char*) &read_timeout, sizeof(read_timeout));
 

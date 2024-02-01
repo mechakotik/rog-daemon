@@ -10,6 +10,7 @@
 
 #include "profile.hpp"
 #include "fan_curve.hpp"
+#include "mux.hpp"
 #include "enums.hpp"
 
 std::vector<char> execute(std::vector<char> command)
@@ -84,6 +85,18 @@ std::vector<char> execute(std::vector<char> command)
 
         case ROGD_COMMAND_FAN_CURVE_RESET: {
             result[0] = rogd::fan_curve::reset(command[1]);
+            break;
+        }
+
+        case ROGD_COMMAND_MUX_GET: {
+            bool enabled;
+            result[0] = rogd::mux::get(enabled);
+            result[1] = enabled;
+            break;
+        }
+
+        case ROGD_COMMAND_MUX_SET: {
+            result[0] = rogd::mux::set(command[1]);
             break;
         }
     }

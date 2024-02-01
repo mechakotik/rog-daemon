@@ -4,7 +4,8 @@ executable(
         'main.cpp',
         'sysfs.cpp',
         'profile.cpp',
-        'fan_curve.cpp'
+        'fan_curve.cpp',
+        'mux.cpp'
     ),
     install: true,
     install_dir: '/usr/bin'

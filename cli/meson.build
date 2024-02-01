@@ -9,3 +9,9 @@ executable('rog-fan-curve',
     install: true,
     install_dir: '/usr/bin'
 )
+
+executable('rog-mux',
+    files('mux.cpp'),
+    install: true,
+    install_dir: '/usr/bin'
+)

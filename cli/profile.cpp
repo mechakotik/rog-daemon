@@ -4,11 +4,11 @@
 std::string get_profile_name(int id)
 {
     switch(id) {
-        case 0:
+        case ROGD_PROFILE_BALANCED:
             return "Balanced";
-        case 1:
+        case ROGD_PROFILE_PERFORMANCE:
             return "Performance";
-        case 2:
+        case ROGD_PROFILE_QUIET:
             return "Quiet";
         default:
             return "Unknown (" + std::to_string(id) + ")";
@@ -53,13 +53,13 @@ int main(int argc, char** argv)
     else {
         command[0] = ROGD_COMMAND_PROFILE_SET;
         if(program.get("--set") == "balanced") {
-            command[1] = 0;
+            command[1] = ROGD_PROFILE_BALANCED;
         }
         else if(program.get("--set") == "performance") {
-            command[1] = 1;
+            command[1] = ROGD_PROFILE_PERFORMANCE;
         }
         else {
-            command[1] = 2;
+            command[1] = ROGD_PROFILE_QUIET;
         }
     }
 
