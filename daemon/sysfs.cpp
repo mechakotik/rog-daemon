@@ -30,11 +30,8 @@ bool rogd::sysfs::get(fs_path path, std::string &result)
     return true;
 }
 
-#include <iostream>
-
 bool rogd::sysfs::set(fs_path path, int value)
 {
-    std::cout << path << ' ' << value << std::endl;
     std::ofstream fout(path);
     if(!fout.is_open()) {
         return false;

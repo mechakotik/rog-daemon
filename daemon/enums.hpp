@@ -22,7 +22,9 @@ enum {
     ROGD_COMMAND_FAN_CURVE_SET,
     ROGD_COMMAND_FAN_CURVE_RESET,
     ROGD_COMMAND_MUX_GET,
-    ROGD_COMMAND_MUX_SET
+    ROGD_COMMAND_MUX_SET,
+    ROGD_COMMAND_PANEL_OD_GET,
+    ROGD_COMMAND_PANEL_OD_SET
 };
 
 enum {
@@ -36,7 +38,8 @@ enum {
     ROGD_ERROR_NO_SUCH_FAN,
     ROGD_ERROR_FILE_READ_FAILED,
     ROGD_ERROR_FILE_WRITE_FAILED,
-    ROGD_ERROR_MUX_UNSOPPORTED
+    ROGD_ERROR_MUX_UNSOPPORTED,
+    ROGD_ERROR_PANEL_OD_UNSUPPORTED
 };
 
 const std::vector<std::string> ROGD_ERROR_MESSAGES
@@ -51,7 +54,8 @@ const std::vector<std::string> ROGD_ERROR_MESSAGES
     "no such fan on your device",
     "file read failed",
     "file write failed",
-    "your device does not support MUX switch"
+    "your device does not support MUX switch",
+    "your device does not support Panel Overdrive"
 };
 
 #endif

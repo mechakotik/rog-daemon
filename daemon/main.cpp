@@ -11,6 +11,7 @@
 #include "profile.hpp"
 #include "fan_curve.hpp"
 #include "mux.hpp"
+#include "panel_od.hpp"
 #include "enums.hpp"
 
 std::vector<char> execute(std::vector<char> command)
@@ -99,6 +100,23 @@ std::vector<char> execute(std::vector<char> command)
             result[0] = rogd::mux::set(command[1]);
             break;
         }
+
+        case ROGD_COMMAND_PANEL_OD_GET: {
+            bool enabled;
+            result[0] = rogd::panel_od::get(enabled);
+            result[1] = enabled;
+            break;
+        }
+
+        case ROGD_COMMAND_PANEL_OD_SET: {
+            result[0] = rogd::panel_od::set(command[1]);
+            break;
+        }
+
+        default: {
+            result[0] = ROGD_ERROR_INVALID_COMMAND;
+            break;
+        }
     }
 
     return result;
@@ -147,6 +165,7 @@ int main()
     signal(SIGTERM, interrupt);
 
     rogd::fan_curve::load();
+    rogd::panel_od::load();
     std::thread fan_curve_fix_thread(rogd::fan_curve::fix_loop);
 
     while(true) {

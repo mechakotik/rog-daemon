@@ -1,10 +1,11 @@
 <h1 align="center">rog-daemon</h1>
 
-rog-daemon is Linux damon and CLI to control ASUS ROG/TUF laptops specific features. It is still under development and some key features are missing. Currently it supports following features:
+rog-daemon is Linux damon and CLI to control ASUS ROG/TUF laptops. Currently it supports following features:
 
-- Profile (throttle thermal policy) control
+- Profile (throttle thermal policy)
 - Custom fan curves
-- MUX switch control
+- MUX switch
+- Panel Overdrive
 
 ## Build and install
 
@@ -74,6 +75,21 @@ rog-mux --set=optimus
 
 # Set MUX switch mode to Ultimate
 rog-mux --set=ultimate
+```
+
+### `rog-panel-od`
+
+Controls Panel Overdrive feature.
+
+```bash
+# Get current Panel Overdrive state
+rog-panel-od --get
+
+# Enable Panel Overdrive
+rog-panel-od --enable
+
+# Disable Panel Overdrive
+rog-panel-od --disable
 ```
 
 ## Difference from asusctl

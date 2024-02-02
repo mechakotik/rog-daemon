@@ -5,7 +5,8 @@ executable(
         'sysfs.cpp',
         'profile.cpp',
         'fan_curve.cpp',
-        'mux.cpp'
+        'mux.cpp',
+        'panel_od.cpp'
     ),
     install: true,
     install_dir: '/usr/bin'

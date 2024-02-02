@@ -15,3 +15,9 @@ executable('rog-mux',
     install: true,
     install_dir: '/usr/bin'
 )
+
+executable('rog-panel-od',
+    files('panel_od.cpp'),
+    install: true,
+    install_dir: '/usr/bin'
+)
