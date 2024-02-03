@@ -91,13 +91,3 @@ rog-panel-od --enable
 # Disable Panel Overdrive
 rog-panel-od --disable
 ```
-
-## Difference from asusctl
-
-A note on why this was created instead of using asusctl. The projects are similar, but asusctl uses power-profiles-daemon to control `platform_profile`. PPD is power management tool which,
-alongside with controlling `platform_profile`, manages lots of power related kernel options. It conflicts with other power saving tools like TLP or TuneD, so asusctl forces user to have PPD as
-power saving tool.
-
-rog-daemon doesn't use an upstream tool to manage `platform_profile`, so user is free to use the power management tool he wants or not use it at all. It has rog-profile tool which does the
-job of controlling `platform_profile`. However, if this option is changed directly by user or another program (for example, TLP has option for this), the daemon will work fine with it and
-apply corresponding custom fan curve if enabled.
