@@ -27,7 +27,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    std::vector<char> command(ROGD_COMMAND_SIZE), result;
+    std::vector<unsigned char> command(ROGD_COMMAND_SIZE), result;
 
     if(program["--get"] == true) {
         command[0] = ROGD_COMMAND_PANEL_OD_GET;

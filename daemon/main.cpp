@@ -14,9 +14,9 @@
 #include "panel_od.hpp"
 #include "enums.hpp"
 
-std::vector<char> execute(std::vector<char> command)
+std::vector<unsigned char> execute(std::vector<unsigned char> command)
 {
-    std::vector<char> result(ROGD_COMMAND_SIZE);
+    std::vector<unsigned char> result(ROGD_COMMAND_SIZE);
 
     switch(command[0]) {
         case ROGD_COMMAND_PROFILE_GET: {
@@ -173,16 +173,16 @@ int main()
         int client_addr_len = sizeof(client_addr);
         int client_socket = accept(server_socket, (sockaddr*) &client_addr, (socklen_t*) &client_addr_len);
 
-        char input[ROGD_COMMAND_SIZE];
+        unsigned char input[ROGD_COMMAND_SIZE];
         read(client_socket, &input, ROGD_COMMAND_SIZE);
 
-        std::vector<char> input_vec(ROGD_COMMAND_SIZE);
+        std::vector<unsigned char> input_vec(ROGD_COMMAND_SIZE);
         for(int i = 0; i < ROGD_COMMAND_SIZE; i ++) {
             input_vec[i] = input[i];
         }
 
-        std::vector<char> output_vec = execute(input_vec);
-        char output[ROGD_COMMAND_SIZE];
+        std::vector<unsigned char> output_vec = execute(input_vec);
+        unsigned char output[ROGD_COMMAND_SIZE];
         for(int i = 0; i < ROGD_COMMAND_SIZE; i ++) {
             output[i] = output_vec[i];
         }

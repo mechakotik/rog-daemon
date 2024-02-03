@@ -54,7 +54,7 @@ int main(int argc, char** argv)
         fan = 2;
     }
 
-    std::vector<char> command(ROGD_COMMAND_SIZE), result;
+    std::vector<unsigned char> command(ROGD_COMMAND_SIZE), result;
     command[1] = fan;
 
     if(program["--get"] == true) {
@@ -109,8 +109,8 @@ int main(int argc, char** argv)
     if(program["--get"] == true) {
         std::cout << (result[1] ? "Enabled" : "Disabled") << std::endl;
         for(int point = 0; point < 8; point ++) {
-            int temp = (unsigned int)result[point + 2];
-            int pwm = (unsigned int)result[point + 10];
+            int temp = result[point + 2];
+            int pwm = result[point + 10];
             pwm = pwm * 100 / 255;
             std::cout << std::format("{}c:{}%", temp, pwm);
             if(point <= 6) {

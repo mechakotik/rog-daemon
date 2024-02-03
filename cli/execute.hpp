@@ -11,7 +11,7 @@
 
 const std::string ROGD_CONNECT_ERROR_MESSAGE = "unable to connect to rog-daemon, is it running?";
 
-bool execute(std::vector<char> command, std::vector<char> &result)
+bool execute(std::vector<unsigned char> command, std::vector<unsigned char> &result)
 {
     int server_socket = socket(AF_UNIX, SOCK_STREAM, 0);
     if(server_socket == -1) {
@@ -31,7 +31,7 @@ bool execute(std::vector<char> command, std::vector<char> &result)
     read_timeout.tv_usec = 0;
     setsockopt(server_socket, SOL_SOCKET, SO_RCVTIMEO, (const char*) &read_timeout, sizeof(read_timeout));
 
-    char command_arr[ROGD_COMMAND_SIZE];
+    unsigned char command_arr[ROGD_COMMAND_SIZE];
     for(int i = 0; i < ROGD_COMMAND_SIZE; i ++) {
         command_arr[i] = command[i];
     }
@@ -40,14 +40,14 @@ bool execute(std::vector<char> command, std::vector<char> &result)
         return false;
     }
 
-    char result_arr[ROGD_COMMAND_SIZE];
+    unsigned char result_arr[ROGD_COMMAND_SIZE];
     if(read(server_socket, &result_arr, ROGD_COMMAND_SIZE) != ROGD_COMMAND_SIZE) {
         return false;
     }
     
     close(server_socket);
 
-    result = std::vector<char>(ROGD_COMMAND_SIZE);
+    result = std::vector<unsigned char>(ROGD_COMMAND_SIZE);
     for(int i = 0; i < ROGD_COMMAND_SIZE; i ++) {
         result[i] = result_arr[i];
     }
