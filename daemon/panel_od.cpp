@@ -39,7 +39,7 @@ int rogd::panel_od::write_to_file()
         return ROGD_ERROR_FILE_WRITE_FAILED;
     }
     if(!(fout << enabled << std::endl)) {
-        return ROGD_ERROR_FILE_READ_FAILED;
+        return ROGD_ERROR_FILE_WRITE_FAILED;
     }
 
     fout.close();
@@ -67,6 +67,11 @@ int rogd::panel_od::load()
         return ROGD_ERROR_SYSFS_WRITE_FAILED;
     }
 
+    error = write_to_file();
+    if(error) {
+        return error;
+    }
+
     loaded = true;
     return ROGD_OK;
 }
@@ -92,7 +97,7 @@ int rogd::panel_od::set(bool value)
         return ROGD_OK;
     }
 
-    enabled = !enabled;
+    enabled = value;
     if(!sysfs::set(PANEL_OD_PATH, enabled)) {
         enabled = !enabled;
         return ROGD_ERROR_SYSFS_WRITE_FAILED;
