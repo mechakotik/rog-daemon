@@ -1,6 +1,6 @@
 <h1 align="center">rog-daemon</h1>
 
-rog-daemon is Linux damon and CLI to control ASUS ROG/TUF laptops. Currently it supports following features:
+rog-daemon is Linux daemon and CLI to control ASUS ROG/TUF laptops. It supports following features:
 
 - Profile (throttle thermal policy)
 - Custom fan curves
