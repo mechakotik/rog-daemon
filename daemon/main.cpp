@@ -45,7 +45,7 @@ std::vector<unsigned char> execute(std::vector<unsigned char> command)
             for(int point = 0; point < rogd::fan_curve::NUM_CURVE_POINTS; point ++) {
                 result[point + 2] = curve.temps[point];
             }
-            for(int point = 1; point <= rogd::fan_curve::NUM_CURVE_POINTS; point ++) {
+            for(int point = 0; point < rogd::fan_curve::NUM_CURVE_POINTS; point ++) {
                 result[point + rogd::fan_curve::NUM_CURVE_POINTS + 2] = curve.pwms[point];
             }
             break;
