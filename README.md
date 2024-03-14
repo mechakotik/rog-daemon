@@ -12,7 +12,7 @@ rog-daemon is Linux daemon and CLI to control ASUS ROG/TUF laptops. It supports 
 To build this project, you need to install C++ comiler and Meson build system. The installation process varies through different distros and package managers, here is the example for Arch Linux:
 
 ```
-sudo pacman -S base-devel meson
+sudo pacman -S gcc meson
 ```
 
 After installing dependencies, clone the repository and run these commands in the repository folder to build and install the daemon:
