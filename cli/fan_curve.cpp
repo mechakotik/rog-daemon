@@ -86,7 +86,7 @@ int main(int argc, char** argv)
                 error = true;
                 break;
             }
-            pwm = pwm * 255 / 100;
+            pwm = (pwm * 255 + 99) / 100;
             command[point + 2] = temp;
             command[point + 10] = pwm;
         }
