@@ -1,0 +1,5 @@
+type = process
+command = /usr/bin/rog-daemon
+depends-on = udevd
+restart = true
+smooth-recovery = true
