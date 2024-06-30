@@ -1,3 +1,5 @@
+#ifdef ROGD_BUILD_PANEL_OD
+
 #include "panel_od.hpp"
 #include "sysfs.hpp"
 #include "enums.hpp"
@@ -110,3 +112,5 @@ int rogd::panel_od::set(bool value)
 
     return ROGD_OK;
 }
+
+#endif

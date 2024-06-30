@@ -1,3 +1,5 @@
+#ifdef ROGD_BUILD_MUX
+
 #include "mux.hpp"
 #include "sysfs.hpp"
 #include "enums.hpp"
@@ -35,3 +37,5 @@ int rogd::mux::set(bool value)
     }
     return ROGD_OK;
 }
+
+#endif

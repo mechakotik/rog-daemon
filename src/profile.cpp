@@ -4,6 +4,8 @@
 
 const fs_path TTP_PATH = ASUS_NB_WMI_PATH / "throttle_thermal_policy";
 
+#if defined(ROGD_BUILD_PROFILE) || defined(ROGD_BUILD_FAN_CURVE)
+
 int rogd::profile::get(int &result)
 {
     if(!sysfs::has(ASUS_NB_WMI_PATH)) {
@@ -17,6 +19,10 @@ int rogd::profile::get(int &result)
     }
     return ROGD_OK;
 }
+
+#endif
+
+#ifdef ROGD_BUILD_PROFILE
 
 int rogd::profile::set(int value)
 {
@@ -48,3 +54,5 @@ int rogd::profile::next(int &value)
     value = id;
     return ROGD_OK;
 }
+
+#endif

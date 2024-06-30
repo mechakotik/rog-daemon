@@ -1,6 +1,8 @@
 #ifndef __ROGD_FAN_CURVE_HPP
 #define __ROGD_FAN_CURVE_HPP
 
+#ifdef ROGD_BUILD_FAN_CURVE
+
 #include "sysfs.hpp"
 #include <array>
 
@@ -26,5 +28,7 @@ namespace rogd::fan_curve {
     int set(int fan, curve_t value);
     int reset(int fan);
 }
+
+#endif
 
 #endif

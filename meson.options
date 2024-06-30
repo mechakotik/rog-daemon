@@ -3,3 +3,23 @@ option('init', type: 'combo',
     value: 'systemd',
     description: 'Init system to install service file for'
 )
+
+option('profile', type: 'boolean',
+    value: true,
+    description: 'Build support for controlling power profile'
+)
+
+option('fan_curve', type: 'boolean',
+    value: true,
+    description: 'Build support for custom fan curves'
+)
+
+option('mux', type: 'boolean',
+    value: true,
+    description: 'Build support for MUX switch'
+)
+
+option('panel_od', type: 'boolean',
+    value: true,
+    description: 'Build support for Panel Overdrive'
+)

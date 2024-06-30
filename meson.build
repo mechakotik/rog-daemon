@@ -3,6 +3,19 @@ project(
     default_options: 'cpp_std=c++20'
 )
 
+if get_option('profile')
+    add_project_arguments('-DROGD_BUILD_PROFILE', language: 'cpp')
+endif
+if get_option('fan_curve')
+    add_project_arguments('-DROGD_BUILD_FAN_CURVE', language: 'cpp')
+endif
+if get_option('mux')
+    add_project_arguments('-DROGD_BUILD_MUX', language: 'cpp')
+endif
+if get_option('panel_od')
+    add_project_arguments('-DROGD_BUILD_PANEL_OD', language: 'cpp')
+endif
+
 executable(
     'rog-daemon',
     files(

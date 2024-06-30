@@ -1,3 +1,5 @@
+#ifdef ROGD_BUILD_FAN_CURVE
+
 #include "fan_curve.hpp"
 #include "enums.hpp"
 #include "profile.hpp"
@@ -321,3 +323,5 @@ void rogd::fan_curve::normalize(curve_t &curve)
         curve.pwms[point] = std::min(curve.pwms[point], 255);
     }
 }
+
+#endif

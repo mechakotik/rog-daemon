@@ -19,13 +19,16 @@ std::vector<unsigned char> execute(std::vector<unsigned char> command)
     std::vector<unsigned char> result(ROGD_COMMAND_SIZE);
 
     switch(command[0]) {
+        #if defined(ROGD_BUILD_PROFILE) || defined(ROGD_BUILD_FAN_CURVE)
         case ROGD_COMMAND_PROFILE_GET: {
             int id;
             result[0] = rogd::profile::get(id);
             result[1] = id;
             break;
         }
+        #endif
 
+        #ifdef ROGD_BUILD_PROFILE
         case ROGD_COMMAND_PROFILE_SET: {
             result[0] = rogd::profile::set(command[1]);
             break;
@@ -37,7 +40,9 @@ std::vector<unsigned char> execute(std::vector<unsigned char> command)
             result[1] = id;
             break;
         }
+        #endif
 
+        #ifdef ROGD_BUILD_FAN_CURVE
         case ROGD_COMMAND_FAN_CURVE_GET: {
             rogd::fan_curve::curve_t curve;
             result[0] = rogd::fan_curve::get(command[1], curve);
@@ -88,7 +93,9 @@ std::vector<unsigned char> execute(std::vector<unsigned char> command)
             result[0] = rogd::fan_curve::reset(command[1]);
             break;
         }
+        #endif
 
+        #ifdef ROGD_BUILD_MUX
         case ROGD_COMMAND_MUX_GET: {
             bool enabled;
             result[0] = rogd::mux::get(enabled);
@@ -100,7 +107,9 @@ std::vector<unsigned char> execute(std::vector<unsigned char> command)
             result[0] = rogd::mux::set(command[1]);
             break;
         }
+        #endif
 
+        #ifdef ROGD_BUILD_PANEL_OD
         case ROGD_COMMAND_PANEL_OD_GET: {
             bool enabled;
             result[0] = rogd::panel_od::get(enabled);
@@ -112,6 +121,7 @@ std::vector<unsigned char> execute(std::vector<unsigned char> command)
             result[0] = rogd::panel_od::set(command[1]);
             break;
         }
+        #endif
 
         default: {
             result[0] = ROGD_ERROR_INVALID_COMMAND;
@@ -164,9 +174,14 @@ int main()
     signal(SIGABRT, interrupt);
     signal(SIGTERM, interrupt);
 
-    rogd::fan_curve::load();
-    rogd::panel_od::load();
-    std::thread fan_curve_fix_thread(rogd::fan_curve::fix_loop);
+    #ifdef ROGD_BUILD_FAN_CURVE
+        rogd::fan_curve::load();
+        std::thread fan_curve_fix_thread(rogd::fan_curve::fix_loop);
+    #endif
+
+    #ifdef ROGD_BUILD_PANEL_OD
+        rogd::panel_od::load();
+    #endif
 
     while(true) {
         sockaddr_un client_addr;
@@ -191,6 +206,9 @@ int main()
         close(client_socket);
     }
 
-    fan_curve_fix_thread.join();
+    #ifdef ROGD_BUILD_FAN_CURVE
+        fan_curve_fix_thread.join();
+    #endif
+    
     return 0;
 }

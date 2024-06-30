@@ -54,7 +54,7 @@ bool execute(std::vector<unsigned char> command, std::vector<unsigned char> &res
     return true;
 }
 
-
+#ifdef ROGD_BUILD_PROFILE
 std::string get_profile_name(int id)
 {
     switch(id) {
@@ -138,7 +138,9 @@ int rog_profile(int argc, char** argv)
 
     return 0;
 }
+#endif
 
+#ifdef ROGD_BUILD_FAN_CURVE
 int rog_fan_curve(int argc, char** argv)
 {
     argparse::ArgumentParser program("rog-fan-curve", "1.0", argparse::default_arguments::none);
@@ -271,7 +273,9 @@ int rog_fan_curve(int argc, char** argv)
 
     return 0;
 }
+#endif
 
+#ifdef ROGD_BUILD_MUX
 int rog_mux(int argc, char** argv)
 {
     argparse::ArgumentParser program("rog-mux", "1.0", argparse::default_arguments::none);
@@ -323,7 +327,9 @@ int rog_mux(int argc, char** argv)
 
     return 0;
 }
+#endif
 
+#ifdef ROGD_BUILD_PANEL_OD
 int rog_panel_od(int argc, char** argv)
 {
     argparse::ArgumentParser program("rog-panel-od", "1.0", argparse::default_arguments::none);
@@ -378,6 +384,7 @@ int rog_panel_od(int argc, char** argv)
 
     return 0;
 }
+#endif
 
 int main(int argc, char** argv)
 {
@@ -392,16 +399,36 @@ int main(int argc, char** argv)
     }
 
     if(subcommand == "profile") {
-        return rog_profile(argc - 1, argv);
+        #ifdef ROGD_BUILD_PROFILE
+            return rog_profile(argc - 1, argv);
+        #else
+            std::cout << "ERROR: rog-daemon was built without profile control support" << std::endl;
+            return 1;
+        #endif
     }
     if(subcommand == "fan-curve") {
-        return rog_fan_curve(argc - 1, argv);
+        #ifdef ROGD_BUILD_FAN_CURVE
+            return rog_fan_curve(argc - 1, argv);
+        #else
+            std::cout << "ERROR: rog-daemon was built without custom fan curves support" << std::endl;
+            return 1;
+        #endif
     }
     if(subcommand == "mux") {
-        return rog_mux(argc - 1, argv);
+        #ifdef ROGD_BUILD_MUX
+            return rog_mux(argc - 1, argv);
+        #else
+            std::cout << "ERROR: rog-daemon was built without MUX switch support" << std::endl;
+            return 1;
+        #endif
     }
     if(subcommand == "panel-od") {
-        return rog_panel_od(argc - 1, argv);
+        #ifdef ROGD_BUILD_PANEL_OD
+            return rog_panel_od(argc - 1, argv);
+        #else
+            std::cout << "ERROR: rog-daemon was built without Panel Overdrive support" << std::endl;
+            return 1;
+        #endif
     }
     
     std::cout << "ERROR: unknown subcommand" << std::endl;
