@@ -6,7 +6,7 @@ option('init', type: 'combo',
 
 option('profile', type: 'boolean',
     value: true,
-    description: 'Build support for controlling power profile'
+    description: 'Build support for controlling profile'
 )
 
 option('fan_curve', type: 'boolean',

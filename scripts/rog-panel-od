@@ -1,2 +1,2 @@
 #!/bin/sh
-rog-panel-od profile $@
+rog-cli panel-od $@
