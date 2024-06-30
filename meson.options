@@ -1,5 +1,5 @@
 option('init', type: 'combo',
-    choices: ['systemd', 'dinit'],
+    choices: ['systemd', 'openrc', 'dinit'],
     value: 'systemd',
     description: 'Init system to install service file for'
 )

@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+
+command=${RC_PREFIX}/usr/bin/rog-daemon
+command_background=true
+pidfile="/run/rog-daemon.pid"
+name="ASUS ROG control daemon"
+
+depend() {
+    need udev
+}
