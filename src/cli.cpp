@@ -155,11 +155,11 @@ int rog_fan_curve(int argc, char** argv)
         .flag()
         .help("get current fan curve");
 
-    group.add_argument("-n", "--enable")
+    group.add_argument("-e", "--enable")
         .flag()
         .help("enable custom fan curve for current profile");
     
-    group.add_argument("-n", "--disable")
+    group.add_argument("-d", "--disable")
         .flag()
         .help("disable custom fan curve for current profile");
     
