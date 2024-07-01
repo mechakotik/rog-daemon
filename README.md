@@ -1,5 +1,12 @@
 <h1 align="center">rog-daemon</h1>
 
+<div align="center">
+
+![GitHub Release](https://img.shields.io/github/v/release/mechakotik/rog-daemon?label=latest&color=green)
+![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fghloc.vercel.app%2Fapi%2Fmechakotik%2Frog-daemon%2Fbadge&label=lines%20of%20code&color=green)
+
+</div>
+
 rog-daemon is Linux daemon and CLI to control ASUS ROG/TUF laptops. It supports following features:
 
 - Profile (throttle thermal policy)
@@ -9,15 +16,17 @@ rog-daemon is Linux daemon and CLI to control ASUS ROG/TUF laptops. It supports 
 
 ## Build and install
 
-To build this project, you need to install C++ comiler and Meson build system. The installation process varies through different distros and package managers, here is the example for Arch Linux:
+To build this project, you need to install C++ compiler and Meson build system. The installation process varies through different distros and package managers, here is an example for Arch Linux:
 
 ```
 sudo pacman -S gcc meson
 ```
 
-After installing dependencies, clone the repository and run these commands in the repository folder to build and install the daemon:
+After installing dependencies, run these commands to clone the repository, build and install the daemon:
 
 ```
+git clone --recurse-submodules https://github.com/mechakotik/rog-daemon
+cd rog-daemon
 meson setup build && cd build
 meson compile
 sudo meson install
@@ -46,6 +55,8 @@ rog-profile --set=balanced
 # Switch to next profile
 rog-profile --next
 ```
+
+Note that all this tool does is modifying ``throttle_thermal_policy`` kernel option, which updates ``platform_profile`` accordingly. You can also control profile through another tool (e.g. TLP), and daemon will apply corresponding fan curve if necessary.
 
 ### `rog-fan-curve`
 
@@ -91,3 +102,27 @@ rog-panel-od --enable
 # Disable Panel Overdrive
 rog-panel-od --disable
 ```
+
+## Alternative init systems
+
+Aside from systemd, rog-daemon supports OpenRC and dinit. To install service files for any of these init systems specify it as ``init`` Meson option when setting up build directory:
+
+```bash
+# OpenRC
+meson setup build -Dinit=openrc
+
+# dinit
+meson setup build -Dinit=dinit
+```
+
+Feel free to contribute service scripts for other init systems as well.
+
+## Disabling unneeded functionality
+
+If your device does not support some of the daemon features, or you don't want daemon to control them, you may cut off unneeded functionality at build time using appropriate Meson options:
+
+```bash
+meson setup build -Dprofile=true -Dfan_curve=true -Dmux=true -Dpanel_od=true
+```
+
+Set unneeded features to false to disable them.
