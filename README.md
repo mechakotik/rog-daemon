@@ -3,7 +3,7 @@
 <div align="center">
 
 ![GitHub Tag](https://img.shields.io/github/v/tag/mechakotik/rog-daemon?label=latest&color=green)
-![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fghloc.vercel.app%2Fapi%2Fmechakotik%2Frog-daemon%2Fbadge&label=lines%20of%20code&color=green)
+![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Fghloc.vercel.app%2Fapi%2Fmechakotik%2Frog-daemon%2Fbadge%3Ffilter%3D!argparse.hpp&label=lines%20of%20code&color=green)
 
 </div>
 

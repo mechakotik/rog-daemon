@@ -5,8 +5,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include "argparse.hpp"
 #include "enums.hpp"
-#include "argparse/include/argparse/argparse.hpp"
 
 const std::string ROGD_CONNECT_ERROR_MESSAGE = "unable to connect to rog-daemon, is it running?";
 
