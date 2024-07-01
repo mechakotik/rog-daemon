@@ -6,5 +6,6 @@ pidfile="/run/rog-daemon.pid"
 name="ASUS ROG control daemon"
 
 depend() {
-    need udev
+    need sysfs
 }
+
