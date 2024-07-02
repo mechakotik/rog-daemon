@@ -218,14 +218,6 @@ int rogd::fan_curve::fix()
     return ROGD_OK;
 }
 
-void rogd::fan_curve::fix_loop()
-{
-    while(1) {
-        fix();
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    }
-}
-
 int rogd::fan_curve::get(int fan, curve_t &result)
 {
     int error = load();

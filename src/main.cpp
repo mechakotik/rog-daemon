@@ -178,10 +178,18 @@ int main()
     signal(SIGINT, interrupt);
     signal(SIGABRT, interrupt);
     signal(SIGTERM, interrupt);
+    std::mutex mutex;
 
     #ifdef ROGD_BUILD_FAN_CURVE
         rogd::fan_curve::load();
-        std::thread fan_curve_fix_thread(rogd::fan_curve::fix_loop);
+        std::thread fan_curve_fix_thread([&mutex] () {
+            while(true) {
+                mutex.lock();
+                rogd::fan_curve::fix();
+                mutex.unlock();
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+            }
+        });
     #endif
 
     #ifdef ROGD_BUILD_PANEL_OD
@@ -201,7 +209,10 @@ int main()
             input_vec[i] = input[i];
         }
 
+        mutex.lock();
         std::vector<unsigned char> output_vec = execute(input_vec);
+        mutex.unlock();
+
         unsigned char output[ROGD_COMMAND_SIZE];
         for(int i = 0; i < ROGD_COMMAND_SIZE; i ++) {
             output[i] = output_vec[i];

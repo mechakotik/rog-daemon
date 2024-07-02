@@ -23,7 +23,6 @@ namespace rogd::fan_curve {
 
     int load();
     int fix();
-    void fix_loop();
     int get(int fan, curve_t &result);
     int set(int fan, curve_t value);
     int reset(int fan);
