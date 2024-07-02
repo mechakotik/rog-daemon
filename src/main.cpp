@@ -199,10 +199,19 @@ int main()
     while(true) {
         sockaddr_un client_addr;
         int client_addr_len = sizeof(client_addr);
+
         int client_socket = accept(server_socket, (sockaddr*) &client_addr, (socklen_t*) &client_addr_len);
+        if(client_socket == -1) {
+            std::cout << "WARNING: unable to accept socket connection" << std::endl;
+            continue;
+        }
 
         unsigned char input[ROGD_COMMAND_SIZE];
-        read(client_socket, &input, ROGD_COMMAND_SIZE);
+        if(read(client_socket, &input, ROGD_COMMAND_SIZE) != ROGD_COMMAND_SIZE) {
+            std::cout << "WARNING: unable to read command from socket" << std::endl;
+            close(client_socket);
+            continue;
+        }
 
         std::vector<unsigned char> input_vec(ROGD_COMMAND_SIZE);
         for(int i = 0; i < ROGD_COMMAND_SIZE; i ++) {
@@ -218,7 +227,10 @@ int main()
             output[i] = output_vec[i];
         }
 
-        write(client_socket, &output, ROGD_COMMAND_SIZE);
+        if(write(client_socket, &output, ROGD_COMMAND_SIZE) != ROGD_COMMAND_SIZE) {
+            std::cout << "WARNING: unable to write command result to socket" << std::endl;
+        }
+
         close(client_socket);
     }
 
