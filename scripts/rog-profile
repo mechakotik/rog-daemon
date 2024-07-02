@@ -1,2 +1,2 @@
 #!/bin/sh
-rog-cli profile $@
+ROGD_EXTERNAL_CALL=1 rog-cli profile $@

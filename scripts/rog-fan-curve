@@ -1,2 +1,2 @@
 #!/bin/sh
-rog-cli fan-curve $@
+ROGD_EXTERNAL_CALL=1 rog-cli fan-curve $@

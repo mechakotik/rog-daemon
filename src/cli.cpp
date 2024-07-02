@@ -388,6 +388,11 @@ int rog_panel_od(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
+    if(std::getenv("ROGD_EXTERNAL_CALL") == NULL || std::string(std::getenv("ROGD_EXTERNAL_CALL")) != "1") {
+        std::cout << "ERROR: rog-cli is unified CLI executable for internal use only, please use rog-profile, rog-fan-curve, rog-mux and rog-panel-od instead" << std::endl;
+        return 1;
+    }
+
     if(argc <= 1) {
         std::cout << "ERROR: no subcommand specified" << std::endl;
         return 1;

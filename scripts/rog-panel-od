@@ -1,2 +1,2 @@
 #!/bin/sh
-rog-cli panel-od $@
+ROGD_EXTERNAL_CALL=1 rog-cli panel-od $@
