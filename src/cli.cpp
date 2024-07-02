@@ -19,7 +19,7 @@ bool execute(std::vector<unsigned char> command, std::vector<unsigned char> &res
 
     struct sockaddr_un server_addr;
     server_addr.sun_family = AF_UNIX;
-    strcpy(server_addr.sun_path, "/tmp/rog-daemon-socket");
+    strcpy(server_addr.sun_path, ROGD_SOCKET_PATH.c_str());
 
     if(connect(server_socket, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
         return false;

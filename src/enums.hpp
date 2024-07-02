@@ -6,6 +6,8 @@
 
 const int ROGD_COMMAND_SIZE = 20;
 
+const std::string ROGD_SOCKET_PATH = "/run/rog-daemon.socket";
+
 enum {
     ROGD_PROFILE_BALANCED,
     ROGD_PROFILE_PERFORMANCE,

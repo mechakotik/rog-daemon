@@ -137,7 +137,7 @@ int server_socket;
 void interrupt(int signal)
 {
     close(server_socket);
-    std::filesystem::remove("/tmp/rog-daemon-socket");
+    std::filesystem::remove(ROGD_SOCKET_PATH);
     exit(signal);
 }
 
@@ -148,7 +148,7 @@ int main()
         return 1;
     }
 
-    std::filesystem::remove("/tmp/rog-daemon-socket");
+    std::filesystem::remove(ROGD_SOCKET_PATH);
     server_socket = socket(AF_UNIX, SOCK_STREAM, 0);
     if(server_socket == -1) {
         std::cout << "ERROR: failed to create socket" << std::endl;
@@ -157,10 +157,10 @@ int main()
     
     sockaddr_un server_addr;
     server_addr.sun_family = AF_UNIX;
-    strcpy(server_addr.sun_path, "/tmp/rog-daemon-socket");
+    strcpy(server_addr.sun_path, ROGD_SOCKET_PATH.c_str());
 
     if(bind(server_socket, (sockaddr*) &server_addr, sizeof(server_addr)) == -1) {
-        std::cout << "ERROR: failed to bind socket to /tmp/rog-daemon-socket" << std::endl;
+        std::cout << "ERROR: failed to bind socket to " << ROGD_SOCKET_PATH << std::endl;
         return 1;
     }
 
@@ -169,7 +169,7 @@ int main()
         return 1;
     }
 
-    std::filesystem::permissions("/tmp/rog-daemon-socket", std::filesystem::perms::all);
+    std::filesystem::permissions(ROGD_SOCKET_PATH, std::filesystem::perms::all);
     signal(SIGINT, interrupt);
     signal(SIGABRT, interrupt);
     signal(SIGTERM, interrupt);
