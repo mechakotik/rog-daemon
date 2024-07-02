@@ -169,7 +169,12 @@ int main()
         return 1;
     }
 
-    std::filesystem::permissions(ROGD_SOCKET_PATH, std::filesystem::perms::all);
+    std::filesystem::permissions(ROGD_SOCKET_PATH,
+        std::filesystem::perms::owner_read | std::filesystem::perms::owner_write |
+        std::filesystem::perms::group_read | std::filesystem::perms::group_write |
+        std::filesystem::perms::others_read | std::filesystem::perms::others_write 
+    );
+
     signal(SIGINT, interrupt);
     signal(SIGABRT, interrupt);
     signal(SIGTERM, interrupt);
