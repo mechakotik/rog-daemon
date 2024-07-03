@@ -126,3 +126,10 @@ meson setup build -Dprofile=true -Dfan_curve=true -Dmux=true -Dpanel_od=true
 ```
 
 Set unneeded features to false to disable them.
+
+## Related projects
+
+[asusctl](https://github.com/flukejones/asusctl) - more complex tool, can do everything rog-daemon can do
+
+[OpenRGB](https://github.com/CalcProgrammer1/OpenRGB) - can control RGB lighting on ASUS ROG laptops
+
